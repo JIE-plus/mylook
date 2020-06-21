@@ -1,0 +1,114 @@
+#item-font{
+	color: #FFFFFF;
+}
+#item-font:hover{
+	color:#F5C6CB;
+}
+.userHeader{
+	width: 35px;
+	height: 35px; 
+	border-radius:50%;
+}
+.dropdown-menu li{
+	text-align: center;
+}
+.container-box{
+	padding: 0px;
+}
+.sort_a{
+	width: 200px;
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	color: white;
+}
+
+.card-box{
+	height: 256px;
+}
+.box-img{
+	height: 128px;
+}
+.box-img-body{
+	height: 128px;
+	padding: 0px 8px 0px 8px;
+}
+.box-svg{
+	position: absolute;
+	bottom: 4px;
+    color: white
+}
+#box-svg-1{
+	left: 72px;
+}
+.box-span{
+	position: absolute;
+	bottom: 0px;
+	color: white;
+}
+#box-span-1{
+	left: 94px;
+}
+#box-span-2{
+	right: 0px;
+}
+#box-span-3{
+	left: 28px;
+}
+.box-body{
+	margin: 0;
+}
+#box-a{
+	text-decoration: none;
+	color: #000000;
+}
+#box-c{
+	display: none;
+}
+#box-a:hover #box-b{
+	display: none;
+}
+#box-a:hover #box-c{
+	display: block;
+}
+.box-title{
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
+.card-body{
+	text-align: center;
+}
+#card-user{
+	background-color: floralwhite;
+}
+.user-img{
+	width: 100px;
+	height: 100px;
+	margin-top: 10px;
+}
+.box-p{
+	margin-bottom: 0px;
+}
+.bottom-box{
+	height: 160px;
+	position: absolute;
+
+}
+.bottom-ul{
+	margin: 0px;
+}
+.bottom-ul li{
+	color: white;
+	list-style: none;
+	float: left;
+	margin-right: 10px;
+}
+.bottom-ul li a{
+	color: white;
+	text-decoration: none;
+}
+.data{
+	color: white;
+}
+
+

@@ -1,0 +1,29 @@
+.bottom-box-loginregister{
+	height: 160px;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+.bottom-box{
+	height: 160px;
+	width:100%;
+}
+.bottom-ul{
+	margin: 0px;
+}
+.bottom-ul li{
+	color: white;
+	list-style: none;
+	float: left;
+	margin-right: 10px;
+}
+.bottom-ul li a{
+	color: white;
+	text-decoration: none;
+}
+.data{
+	color: white;
+}
+.container-box{
+	padding: 0px;
+}

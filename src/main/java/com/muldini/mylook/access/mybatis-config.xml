@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+   <typeAliases>
+    <typeAlias alias="User" type="com.muldini.mylook.entity.User" />
+    <typeAlias alias="Carousel" type="com.muldini.mylook.entity.Carousel" />
+    <typeAlias alias="Hobby" type="com.muldini.mylook.entity.Hobby" />
+    <typeAlias alias="Video" type="com.muldini.mylook.entity.Video" />
+    <typeAlias alias="Follow" type="com.muldini.mylook.entity.Follow" />
+    <typeAlias alias="History" type="com.muldini.mylook.entity.History" />
+    <typeAlias alias="Comment" type="com.muldini.mylook.entity.Comment" />
+  </typeAliases>
+   
+  <mappers>
+    <mapper resource="com/muldini/mylook/access/Mapper/AuthMapper.xml" />
+    <mapper resource="com/muldini/mylook/access/Mapper/IndexMapper.xml" />
+    <mapper resource="com/muldini/mylook/access/Mapper/VideoMapper.xml" />
+  </mappers> 
+  
+
+</configuration>

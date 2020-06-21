@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.muldini.mylook.access.IndexMapper">
+
+	<select id="retrieveAllCarousel" resultMap="carouselResultMap">
+		select carousel_id, name, picture, url
+		from consts_site_carousel
+	</select>
+
+	<resultMap id="carouselResultMap" type="Carousel">
+		<id property="carouselId" column="carousel_id" />
+		<result property="name" column="name" />
+		<result property="picture" column="picture" />
+		<result property="url" column="url" />
+	</resultMap>
+
+	<select id="retrieveAllHobbyCount" resultMap="retrieveAllHobbyCountResultMap">
+		select count(hobby_id) as hobby_count from hobby_type
+	</select>
+
+	<resultMap type="Hobby" id="retrieveAllHobbyCountResultMap">
+		<id property="hobbyId" column="hobby_id" />
+		<result property="hobbyCount" column="hobby_count" />
+	</resultMap>
+
+	<select id="retrieveVideoByHobby" resultMap="retrieveVideoByHobbyResultMap">
+		select
+		video_id, v.name as v_name, video_cover, video_gif, video_url, time, thumbs_up, watch_count,
+		h.hobby_id as hid, h.name as h_name, hobby_picture
+		from video v, hobby_type h
+		where v.hobby_id = ${param1} and v.hobby_id = h.hobby_id
+		order by
+		<if test="param2 == 1">watch_count</if>
+        <if test="param2 == 2">thumbs_up</if>
+        desc
+		limit
+		${param3}, ${param4}
+	</select>
+	
+	<resultMap type="Video" id="retrieveVideoByHobbyResultMap">
+	    <id property="videoId" column="video_id"/>
+	    <result property="name" column="v_name"/>
+	    <result property="videoCover" column="video_cover"/>
+	    <result property="videoGif" column="video_gif"/>
+	    <result property="videoUrl" column="video_url"/>
+	    <result property="time" column="time"/>
+	    <result property="thumbsUp" column="thumbs_up"/>
+	    <result property="watchCount" column="watch_count"/>
+	    <association property="hobby" javaType="Hobby">
+			<id property="hobbyId" column="hid"/>
+			<result property="name" column="h_name"/>
+			<result property="hobbyPicture" column="hobby_picture"/>
+		</association>
+	</resultMap>
+	
+	<select id="retrieveUserByHobby" resultMap="retrieveUserByHobbyResultMap">
+	   select 
+	   username, header, follows, fans,
+	   name
+	   from user u, hobby_type h
+	   where u.hobby_id = h.hobby_id
+	   order by fans
+	   desc
+	   limit 0, 4
+	</select>
+	
+	<resultMap type="User" id="retrieveUserByHobbyResultMap">
+	    <id property="userId" column="user_id"/>
+	    <result property="username" column="username"/>
+	    <result property="header" column="header"/>
+	    <result property="follows" column="follows"/>
+	    <result property="fans" column="fans"/>
+	    <association property="hobby" javaType="Hobby">
+			<id property="hobbyId" column="hobby_id"/>
+			<result property="name" column="name"/>
+		</association>
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- 【数据库连接】 -->
+	<bean id="mylookSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="mylookDataSource" />
+		<property name="configLocation"
+			value="classpath:com/muldini/mylook/access/mybatis-config.xml" />
+	</bean>
+
+	<!-- <bean id="mylookDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName" value="java:/comp/env/jdbc/mylookDb1" /> </bean> -->
+
+
+	<bean id="mylookDataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/mylook" />
+		<property name="username" value="root" />
+		<property name="password" value="12345" />
+		<property name="connectionProperties">
+			<props>
+				<prop key="oracle.net.READ_TIMEOUT">60000</prop>
+			</props>
+		</property>
+	</bean>
+	
+
+	<!-- 【数据访问对象】 -->
+	<bean id="authMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.muldini.mylook.access.AuthMapper" />
+		<property name="sqlSessionFactory" ref="mylookSqlSessionFactory" />
+	</bean>
+
+	<bean id="indexMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.muldini.mylook.access.IndexMapper" />
+		<property name="sqlSessionFactory" ref="mylookSqlSessionFactory" />
+	</bean>
+	
+	<bean id="videoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.muldini.mylook.access.VideoMapper" />
+		<property name="sqlSessionFactory" ref="mylookSqlSessionFactory" />
+	</bean>
+
+	<bean id="mylookTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mylookDataSource" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="mylookTransactionManager" />
+
+</beans>

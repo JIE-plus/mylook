@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.muldini.mylook.access.VideoMapper">
+
+	<select id="retrieveVideoAllMessages" resultMap="retrieveVideoAllMessagesResultMap">
+		select video_id,
+		v.name as v_name, video_url, video_introduction, watch_count, thumbs_up, collections, 
+		v.create_time as v_create_time,
+		h.hobby_id as h_hobby_id, h.name as h_name,
+		u.user_id as u_user_id, username, header, fans
+		from video v, hobby_type h, user u
+		where video_id = #{videoId} and
+		v.hobby_id = h.hobby_id and v.user_id = u.user_id
+	</select>
+
+	<resultMap type="Video" id="retrieveVideoAllMessagesResultMap">
+		<id property="videoId" column="video_id" />
+		<result property="name" column="v_name" />
+		<result property="videoUrl" column="video_url" />
+		<result property="videoIntroduction" column="video_introduction" />
+		<result property="watchCount" column="watch_count" />
+		<result property="thumbsUp" column="thumbs_up" />
+		<result property="collections" column="collections" />
+		<result property="createTime" column="v_create_time" />
+		<association property="hobby" javaType="Hobby">
+		    <id property="hobbyId" column="h_hobby_id" />
+		    <result property="name" column="h_name" />
+		</association>
+		<association property="user" javaType="User">
+		    <id property="userId" column="u_user_id" />
+		    <result property="username" column="username" />
+		    <result property="header" column="header" />
+		    <result property="fans" column="fans" />
+		</association>
+	</resultMap>
+	
+	<!-- 关注 -->
+	<select id="retrieveByUserIdAndFollowId" resultMap="retrieveByUserIdAndFollowIdRsultMap">
+	    select follow_id, user_id, follow_user_id, create_time 
+	    from follow
+	    where user_id = #{userId} and follow_user_id = #{followUserId}
+	</select>
+	
+	<resultMap type="Follow" id="retrieveByUserIdAndFollowIdRsultMap">
+		<id property="followId" column="follow_id" />
+		<result property="userId" column="user_id" />
+		<result property="createTime" column="create_time" />
+		<association property="followUser" javaType="User">
+		    <id property="userId" column="follow_user_id" />
+		</association>
+	</resultMap>
+	
+	<insert id="createFollow">
+        insert into follow (user_id, follow_user_id, create_time) 
+        values (#{userId}, #{followUserId}, #{createTime})
+    </insert>
+    
+    <delete id="deleteFollow">
+        delete from follow 
+        where user_id = #{userId} and follow_user_id = #{followUserId}
+    </delete>
+    
+    <select id="retrieveByFans" resultMap="retrieveByFansResultMap">
+        select fans from user where user_id = #{followUserId}
+    </select>
+    
+    <resultMap type="User" id="retrieveByFansResultMap">
+        <id property="userId" column="user_id" />
+        <result property="fans" column="fans" />
+    </resultMap>
+    
+    <update id="updateFans">
+        update user set fans = #{fans} 
+        where user_id = #{followUserId}
+    </update>
+    
+    <!-- 观看记录 -->
+    <select id="retrieveHistoryByUserIdAndVideoId" resultMap="retrieveHistoryByUserIdAndVideoIdRsultMap">
+	    select history_id, user_id, video_id, create_time, update_time
+	    from video_history
+	    where user_id = #{userId} and video_id = #{videoId}
+	</select>
+    
+    <resultMap type="History" id="retrieveHistoryByUserIdAndVideoIdRsultMap">
+		<id property="historyId" column="history_id" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<association property="user" javaType="User">
+		    <id property="userId" column="user_id" />
+		</association>
+		<association property="video" javaType="Video">
+		    <id property="videoId" column="video_id" />
+		</association>
+	</resultMap>
+    
+    <insert id="createHistory">
+        insert into video_history (user_id, video_id, create_time) 
+        values (#{userId}, #{videoId}, #{createTime})
+    </insert>
+    
+    <select id="retrieveByCount" resultMap="retrieveByCountResultMap">
+        select watch_count, thumbs_up, collections from video where video_id = #{videoId}
+    </select>
+    
+    <resultMap type="Video" id="retrieveByCountResultMap">
+        <id property="videoId" column="video_id" />
+        <result property="watchCount" column="watch_count" />
+		<result property="thumbsUp" column="thumbs_up" />
+		<result property="collections" column="collections" />
+    </resultMap>
+    
+    <update id="updateWatchCount">
+        update video set watch_count = #{watchCount} 
+        where video_id = #{videoId}
+    </update>
+    
+    <!-- 点赞 -->
+    <select id="retrieveThumbsUp" resultMap="retrieveThumbsUpResultMap">
+        select user_id, video_id 
+        from video_thumbs_up 
+        where user_id = #{userId} and video_id = #{videoId}
+    </select>
+    
+    <resultMap type="User" id="retrieveThumbsUpResultMap">
+        <id property="userId" column="user_id" />
+        <association property="videoThumbsUp" javaType="Video">
+		    <id property="videoId" column="vidoe_id" />
+		</association>
+    </resultMap>
+    
+    <insert id="createThumbsUp">
+        insert into video_thumbs_up (user_id, video_id, create_time) 
+        values (#{userId}, #{videoId}, #{createTime})
+    </insert>
+    
+    <delete id="deleteThumbsUp">
+        delete from video_thumbs_up 
+        where user_id = #{userId} and video_id = #{videoId}
+    </delete>
+    
+    <update id="updateThumbsUp">
+        update video set thumbs_up = #{thumbsUp} 
+        where video_id = #{videoId}
+    </update>
+    
+    <!-- 收藏 -->
+    <select id="retrieveCollection" resultMap="retrieveCollectionResultMap">
+        select user_id, video_id 
+        from video_collection 
+        where user_id = #{userId} and video_id = #{videoId}
+    </select>
+    
+    <resultMap type="User" id="retrieveCollectionResultMap">
+        <id property="userId" column="user_id" />
+        <association property="videoCollection" javaType="Video">
+		    <id property="videoId" column="vidoe_id" />
+		</association>
+    </resultMap>
+    
+    <insert id="createCollection">
+        insert into video_collection (user_id, video_id, create_time) 
+        values (#{userId}, #{videoId}, #{createTime})
+    </insert>
+    
+    <delete id="deleteCollection">
+        delete from video_collection 
+        where user_id = #{userId} and video_id = #{videoId}
+    </delete>
+    
+    <update id="updateCollection">
+        update video set collections = #{collections}
+        where video_id = #{videoId}
+    </update>
+    
+    <!-- 评论 -->
+    <select id="retrieveCommentByPageNumber" resultMap="retrieveCommentByPageNumberResultMap">
+        select parent_id, content, c.create_time as commentCreateTime,
+        username, header 
+        from user u, video_comment c
+        where c.video_id = #{videoId} and c.user_id = u.user_id
+        order by c.update_time desc
+        limit #{pageNumber} , #{pageSize} 
+    </select>
+    
+    <resultMap type="Comment" id="retrieveCommentByPageNumberResultMap">
+        <id property="parentId" column="parent_id" />
+        <result property="content" column="content" />
+        <result property="createTime" column="commentCreateTime" />
+        <association property="user" javaType="User">
+		    <id property="userId" column="user_id" />
+		    <result property="username" column="username" />
+		    <result property="header" column="header" />
+		</association>
+    </resultMap>
+    
+    <select id="retrieveCommentByCount" resultMap="retrieveCommentByCountResultMap">
+        select count(parent_id) as comment_count
+        from video_comment
+        where video_id = #{videoId} 
+    </select>
+    
+    <resultMap type="Comment" id="retrieveCommentByCountResultMap">
+        <id property="parentId" column="parent_id" />
+        <result property="contentCount" column="comment_count" />
+    </resultMap>
+    
+    <insert id="createComment" parameterType="Comment">
+        insert into video_comment(user_id, video_id, content, create_time)
+        values(#{user.userId},#{video.videoId},#{content},current_timestamp)
+    </insert>
+
+</mapper>

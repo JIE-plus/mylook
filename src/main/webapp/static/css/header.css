@@ -1,0 +1,45 @@
+#item-font{
+	color: #FFFFFF;
+}
+#item-font:hover{
+	color:#F5C6CB;
+}
+.userHeader{
+	width: 35px;
+	height: 35px; 
+	border-radius:50%;
+}
+.dropdown-menu li{
+	text-align: center;
+}
+
+.dropdown-menu{
+	width:200px;
+}
+.dropdown-toggle { 
+	background: #E6E6E6 !important
+}
+.dropdown-menu li{
+    text-align:center;
+}
+
+#menu-li-one{
+	background-color: #82bef1;
+    padding: 0;
+    margin: 0;
+    margin-top:0;
+    height: 40px;
+}
+
+.menu-name{
+	line-height: 40px;
+    font-size: large;
+}
+    
+
+
+
+
+
+
+
