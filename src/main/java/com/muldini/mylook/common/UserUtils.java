@@ -1,7 +1,13 @@
 package com.muldini.mylook.common;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,7 +50,7 @@ public final class UserUtils {
 
     public final static String resultPath(String url) {
 
-        int index = url.lastIndexOf("=");
+        int index = url.indexOf("=");
         String path = url.substring(index + 1);
 
         // int newIndex = newString.indexOf("=");
@@ -103,7 +109,31 @@ public final class UserUtils {
         
         return result;
     }
-
+    
+    public final static List<Integer> resultHostHobbyList(Map<Integer,Integer> map) {
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(map.entrySet()); // 将map的entryset放入list集合
+        // 对list进行排序，并通过Comparator传入自定义的排序规则
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {
+                return o1.getValue() - o2.getValue(); // 重写排序规则，小于0表示升序，大于0表示降序
+            }
+        });
+        // 用迭代器对list中的键值对元素进行遍历
+        Iterator<Map.Entry<Integer, Integer>> iter = list.iterator();
+        while (iter.hasNext()) {
+            Map.Entry<Integer, Integer> item = iter.next();
+            Integer key = item.getKey();
+            int value = item.getValue();
+        }
+        List<Integer> hostHobbyIdList = new ArrayList<Integer>();
+        for(int i = list.size() - 1;i >= 0;i--){
+            hostHobbyIdList.add(list.get(i).getKey());
+        }
+        return hostHobbyIdList;
+        
+    }
+    
     /**
      * 正则表达式校验
      */

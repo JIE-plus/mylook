@@ -18,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <mapper resource="com/muldini/mylook/access/Mapper/AuthMapper.xml" />
     <mapper resource="com/muldini/mylook/access/Mapper/IndexMapper.xml" />
     <mapper resource="com/muldini/mylook/access/Mapper/VideoMapper.xml" />
+    <mapper resource="com/muldini/mylook/access/Mapper/HobbyClassMapper.xml" />
   </mappers> 
   
 

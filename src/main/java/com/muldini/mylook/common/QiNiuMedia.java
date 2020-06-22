@@ -4,8 +4,8 @@ public class QiNiuMedia {
     
 	
 	private static QiNiuMedia media = null;
-	public static final String ACCESSKEY = "";
-    public static final String SECRETKEY = "";
+	public static final String ACCESSKEY = "y1X5Vv33kms6HY7oA8T6MDjfoMtcOSRX5h_d0Tp8";
+    public static final String SECRETKEY = "YI_hqpQ_bGJAec9NCRMWqEoi6cMNP6e_zMAndu-G";
     public static final String BUCKETNAME = "mylook";
     public static final String DOMAIN = "qc681nkfa.bkt.clouddn.com";
 	private String accessKey;// 设置accessKey

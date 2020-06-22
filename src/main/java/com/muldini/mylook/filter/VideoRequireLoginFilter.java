@@ -57,7 +57,7 @@ public class VideoRequireLoginFilter implements Filter {
         
         String urlString = httpReq.getQueryString();
         
-        
+//        String path = UserUtils.resultPath(urlString);
         
         List pathList = UserUtils.resultPathArray(urlString, "&");
         String strOne = UserUtils.resultPath(pathList.get(0).toString());

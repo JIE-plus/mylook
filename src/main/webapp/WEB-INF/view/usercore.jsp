@@ -27,6 +27,18 @@
 
 	<c:import url="header.jsp" />
 	<h1>个人中心</h1>
+	<form method="post" action="upload.do" enctype="multipart/form-data">
+		<div>
+			关键字：<input type="text" name="keyword" required>
+		</div>
+		<%-- 若上传多个文件，则需要多个file类型的input元素，name属性也必须有，其值可不同 --%>
+		<div>
+			文件：<input type="file" name="file">
+		</div>
+		<div>
+			<input type="submit" value="Upload">
+		</div>
+	</form>
 
 	
 </body>

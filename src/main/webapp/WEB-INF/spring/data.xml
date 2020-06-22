@@ -50,6 +50,11 @@
 		<property name="mapperInterface" value="com.muldini.mylook.access.VideoMapper" />
 		<property name="sqlSessionFactory" ref="mylookSqlSessionFactory" />
 	</bean>
+	
+	<bean id="HobbyClassMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.muldini.mylook.access.HobbyClassMapper" />
+		<property name="sqlSessionFactory" ref="mylookSqlSessionFactory" />
+	</bean>
 
 	<bean id="mylookTransactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

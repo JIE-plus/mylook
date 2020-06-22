@@ -262,10 +262,13 @@ public class AuthController {
 	    	
 	    	//拦截器拦截后，登陆完该返回哪里
 	    	if(StringUtils.isNotEmpty(resultPath) && !"login".equals(resultPath) && !"register".equals(resultPath)
-	    	        && !"index".equals(resultPath) && !"video".equals(resultPath)){
+	    	        && !"index".equals(resultPath) && !"video".equals(resultPath) && !"hobbyclass".equals(resultPath)){
 	    		session.setAttribute(StringConstant.SESSION_RESULT_PATH, "");
-	    		return resultPath;
-	    	}else if(StringUtils.isNotEmpty(resultPath) && "video".equals(resultPath)){
+	    		return "redirect:" + resultPath;
+	    	}else if(StringUtils.isNotEmpty(resultPath) && "hobbyclass".equals(resultPath)){
+                session.setAttribute(StringConstant.SESSION_RESULT_PATH, "");
+                return "redirect:hobbyclass.do";
+            }else if(StringUtils.isNotEmpty(resultPath) && "video".equals(resultPath)){
 	    	    session.setAttribute(StringConstant.SESSION_RESULT_PATH, "");
 	    	    session.setAttribute(StringConstant.SESSION_VIDEO_BEFOREPATH, "");
 	    	    return "redirect:" + beforePath;
@@ -308,7 +311,7 @@ public class AuthController {
 		if("usercore".equals(path) || "index".equals(path)){
 		    return "redirect:index.do";
 		}else if("hobbyclass".equals(path)){
-		    return path;
+		    return "redirect:hobbyclass.do";
 		}else{
 			return "redirect:" + path;
 		}

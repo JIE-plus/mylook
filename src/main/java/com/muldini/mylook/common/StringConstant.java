@@ -72,5 +72,22 @@ public final class StringConstant {
 	public static final String REQ_VIDEO_COMMENT_PAGE = "REQ_VIDEO_COMMENT_PAGE";
 	
 	public static final String REQ_VIDEO_COMMENT_COUNT = "REQ_VIDEO_COMMENT_COUNT";
-
+    
+	
+	//分类页面
+	public static final String REQ_HOBBY_NAME_LIST = "REQ_HOBBY_NAME_LIST";
+	
+	public static final String REQ_HOBBY_HOST_MODULE_ONE = "REQ_HOBBY_HOST_MODULE_ONE";
+	
+	public static final String REQ_HOBBY_HOST_MODULE_TWO = "REQ_HOBBY_HOST_MODULE_TWO";
+	
+	public static final String REQ_HOBBY_HOST_MODULE_THREE = "REQ_HOBBY_HOST_MODULE_THREE";
+	
+	public static final String REQ_HOBBY_HOST_MODULE_FOUR = "REQ_HOBBY_HOST_MODULE_FOUR";
+	
+	public static final String REQ_HOBBY_HOST_MODULE_FIVE = "REQ_HOBBY_HOST_MODULE_FIVE";
+	
+	public static final String REQ_HOBBY_HOST_MODULE_SIX = "REQ_HOBBY_HOST_MODULE_SIX";
+	
+	public static final String REQ_HOBBY_VIDEO_ALL = "REQ_HOBBY_VIDEO_ALL";
 }

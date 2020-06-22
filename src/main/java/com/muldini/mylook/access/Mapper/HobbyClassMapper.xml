@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.muldini.mylook.access.HobbyClassMapper">
+	<select id="retrieveHobbyAll" resultMap="retrieveHobbyAllResultMap">
+		select hobby_id, name from hobby_type
+	</select>
+
+	<resultMap type="Hobby" id="retrieveHobbyAllResultMap">
+		<id property="hobbyId" column="hobby_id" />
+		<result property="name" column="name" />
+	</resultMap>
+
+	<select id="retrieveHostHobby" resultMap="retrieveHostHobbyResultMap">
+		select v.hobby_id, sum(watch_count) as watchCount from video v, hobby_type h
+		where v.hobby_id = #{hobbyId} and v.hobby_id = h.hobby_id;
+	</select>
+
+	<resultMap type="Hobby" id="retrieveHostHobbyResultMap">
+		<id property="hobbyId" column="hobby_id" />
+		<result property="watchCount" column="watchCount" />
+	</resultMap>
+
+	<select id="retrieveHostHobbyAll" resultMap="retrieveHostHobbyAllResultMap">
+		SELECT h.name as hobbyName, hobby_small_icon, h.hobby_id as hobby_id,
+		v.name as videoName, video_cover, video_gif , video_id, time, watch_count, thumbs_up
+		from video v, hobby_type h
+		where v.hobby_id = #{hobbyId} and v.hobby_id = h.hobby_id
+		order by watch_count desc
+		limit 0, 4;
+	</select>
+
+	<resultMap type="Video" id="retrieveHostHobbyAllResultMap">
+		<id property="videoId" column="video_id" />
+		<result property="name" column="videoName" />
+		<result property="videoCover" column="video_cover" />
+		<result property="videoGif" column="video_gif" />
+		<result property="time" column="time" />
+		<result property="watchCount" column="watch_count" />
+		<result property="thumbsUp" column="thumbs_up" />
+		<association property="hobby" javaType="Hobby">
+		    <id property="hobbyId" column="hobby_id" />
+		    <result property="name" column="hobbyName" />
+		    <result property="hobbySmallIcon" column="hobby_small_icon" />
+		</association>
+	</resultMap>
+	
+	<select id="retrieveHostHobbyVideoAll" resultMap="retrieveHostHobbyVideoAllResultMap">
+		SELECT h.name as hobbyName, hobby_picture, h.hobby_id as hobby_id,
+		v.name as videoName, video_cover, video_gif , video_id, time, watch_count, thumbs_up
+		from video v, hobby_type h
+		where v.hobby_id = #{hobbyId} and v.hobby_id = h.hobby_id
+		order by watch_count desc
+	</select>
+
+	<resultMap type="Video" id="retrieveHostHobbyVideoAllResultMap">
+		<id property="videoId" column="video_id" />
+		<result property="name" column="videoName" />
+		<result property="videoCover" column="video_cover" />
+		<result property="videoGif" column="video_gif" />
+		<result property="time" column="time" />
+		<result property="watchCount" column="watch_count" />
+		<result property="thumbsUp" column="thumbs_up" />
+		<association property="hobby" javaType="Hobby">
+		    <id property="hobbyId" column="hobby_id" />
+		    <result property="name" column="hobbyName" />
+		    <result property="hobbyPicture" column="hobby_picture" />
+		</association>
+	</resultMap>
+</mapper>

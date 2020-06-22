@@ -34,7 +34,7 @@
 						href="index.do"><strong>首页</strong><span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item"><a id="item-font" class="nav-link"
-						href="hobbyclass.view"><strong>爱好分类</strong></a></li>
+						href="hobbyclass.do"><strong>爱好分类</strong></a></li>
 					<li class="nav-item"><a id="item-font" class="nav-link"
 						href="usercore.view?path=${url}"><strong>个人中心</strong></a></li>
 				</ul>
